@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+  /* justify-content: center;
+  align-items: center; */
+  height: 100vh;
+  max-width: 100rem;
+  margin: 0 auto;
+}
+header {
+  background-color: #0693e3;
+  text-align: center;
+  padding: 4rem;
+}
+
+.goal-section {
+  background-color: #fff;
+  width: 30rem;
+  box-shadow: 0 2rem 4rem 1rem rgba(0, 0, 0, 0.3);
+  margin: 0.5rem;
+  padding: 3rem;
+}
+
+.goal-information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.target-section {
+  display: none;
+}
