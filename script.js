@@ -14,8 +14,6 @@ function renderGoal(data) {
     <button><span><i class="fa-solid fa-minus"></i></span></button>
     </section
   </article>
-
-  <article class="target-section"> VARFÖR FUNGERAR DET INTE </article>
   `;
 
   goalContainerEl.insertAdjacentHTML("beforeend", html);
@@ -24,12 +22,26 @@ function renderGoal(data) {
 async function displayGoal() {
   try {
     const response = await fetch(
-      `https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=true`
+      `https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=false`
     );
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
     for (const eachData of data) {
       renderGoal(eachData);
+      const responseTarget = await fetch(
+        `https://unstats.un.org/SDGAPI/v1/sdg/Goal/${eachData.code}/Target/List?includechildren=true`
+      );
+      // console.log(responseTarget.json());
+      const dataTarget = await responseTarget.json();
+
+      const ul = document.createElement("ul");
+      for (let i = 0; i < dataTarget[0].targets.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = `CODE ${dataTarget[0].targets[i].code} TARGETS: ${dataTarget[0].targets[i].title}`;
+        ul.append(li);
+        console.log(ul);
+      }
+      document.querySelector(".goal-information").append(ul);
     }
   } catch (error) {
     console.log(error.message);
@@ -37,17 +49,44 @@ async function displayGoal() {
 }
 displayGoal();
 
-goalContainerEl.addEventListener("click", function (event) {
-  console.log(event);
-  if (
-    event.target.classList.contains("fa-plus") ||
-    event.target.classList.contains("btn-open")
-  ) {
-    document.querySelector(".target-section").style.display = "block";
-    console.log(event.target);
-    // const article = document.createElement("article");
-    // article.setAttribute("class", "goal-information ");
-    // article.innerText = "VARFÖR ÄNDRAS BARA FÖRSTA ELELEMENTET";
-    // document.querySelector(".goal-section").append(article);
-  }
-});
+// async function displayGoal() {
+//   try {
+//     const response = await fetch(
+//       `https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=fa`
+//     );
+//     const data = await response.json();
+//     for (const eachData of data) {
+//       renderGoal(eachData);
+//       console.log("VARJE MÅL FRÅN 1 - 17 ->", eachData.code);
+//       const responseTarget = await fetch(
+//         `https://unstats.un.org/SDGAPI/v1/sdg/Goal/${eachData.code}/Target/List?includechildren=true`
+//       );
+//       const targetData = await responseTarget.json();
+//       console.log("TARGETS ->", targetData[0].targets);
+
+//       const ul = document.createElement("ul");
+//       for (let i = 0; i < targetData[0].targets.length; i++) {
+//         const li = document.createElement("li");
+//         li.textContent = `TARGET ${targetData[0].targets[i].title}`;
+//         ul.append(li);
+//         console.log(ul);
+//         // console.log(targetData[0].targets[i]);
+//         // console.log(targetData[0].targets[i].title);
+//       }
+//     }
+//     for (let i = 0; i < document.querySelectorAll(".btn-open").length; i++) {
+//       const clickedBtn = document.querySelectorAll(".btn-open")[i];
+//       clickedBtn.addEventListener("click", function (event) {
+//         console.log();
+//         const articleHtml = document.createElement("article");
+//         articleHtml.textContent = `test`;
+//         articleHtml.classList.add("target-section");
+//         event.currentTarget.closest(".goal-information").after(" testar klick");
+//         // document.querySelector(".target-section").style.display = "block";
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+// displayGoal();

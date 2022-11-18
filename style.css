@@ -41,8 +41,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .target-section {
-  display: none;
+  /* display: none; */
 }
