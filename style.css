@@ -41,9 +41,31 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.target-section {
-  /* display: none; */
+.btn-open {
+  background-color: #fff;
+  margin: 1rem;
 }
+.target-text {
+  padding: 1rem;
+  display: none;
+}
+
+/* .show-text .target-text {
+  display: block;
+} */
+
+.btn-close {
+  display: inline-block;
+  display: none;
+}
+
+/* .show-text .minus-icon {
+  display: inline;
+}
+
+.show-text .plus-icon {
+  display: none;
+} */
