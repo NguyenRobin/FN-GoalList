@@ -9,7 +9,6 @@ async function renderGoal(data) {
     <section class="goal-information">
     <p class="goal-text">${data.title}</p>
     <button class="btn-open"><span><i class="fa-solid fa-plus"></i></span></button>
-    <button class="btn-close"><span><i class="fa-solid fa-minus"></i></span></button>
     </section>
   </article>
   `;
@@ -25,7 +24,7 @@ async function renderGoal(data) {
   for (let i = 0; i < dataTarget[0].targets.length; i++) {
     const li = document.createElement("li");
     ul.classList.add("target-text");
-    li.textContent = `CODE ${dataTarget[0].targets[i].code} TARGETS: ${dataTarget[0].targets[i].title}`;
+    li.textContent = `${dataTarget[0].targets[i].code} ${dataTarget[0].targets[i].title}`;
     ul.append(li);
   }
   return ul;
@@ -47,12 +46,42 @@ async function displayGoal() {
     }
 
     // CLICK WON'T CHANGE CORRECT .target-text
-    for (let i = 0; i < document.querySelectorAll(".btn-open").length; i++) {
-      const clickedBtn = document.querySelectorAll(".btn-open")[i];
+    for (let i = 0; i < document.querySelectorAll("button").length; i++) {
+      const clickedBtn = document.querySelectorAll("button")[i];
       clickedBtn.addEventListener("click", function (event) {
-        if (event.currentTarget.closest(".goal-section")) {
-          document.querySelector(".target-text").style.display = "block";
+        // console.log(event.currentTarget);
+        event.currentTarget
+          .closest(".goal-section")
+          .querySelector(".target-text")
+          .classList.toggle("show-text");
+
+        if (
+          event.currentTarget.querySelector("i").classList.contains("fa-plus")
+        ) {
+          event.currentTarget
+            .querySelector("i")
+            .classList.replace("fa-plus", "fa-minus");
+        } else {
+          event.currentTarget
+            .querySelector("i")
+            .classList.replace("fa-minus", "fa-plus");
         }
+
+        // if (event.currentTarget.classList.toggle("show-text")) {
+        //   event.currentTarget
+        //     .closest(".goal-section")
+        //     .querySelector(".btn-open").style.display = "none";
+        //   event.currentTarget
+        //     .closest(".goal-section")
+        //     .querySelector(".btn-close").style.display = "block";
+        // } else {
+        //   event.currentTarget
+        //     .closest(".goal-section")
+        //     .querySelector(".btn-open").style.display = "block";
+        //   event.currentTarget
+        //     .closest(".goal-section")
+        //     .querySelector(".btn-close").style.display = "none";
+        // }
       });
     }
   } catch (error) {
