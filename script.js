@@ -45,7 +45,6 @@ async function displayGoal() {
       }
     }
 
-    // CLICK WON'T CHANGE CORRECT .target-text
     for (let i = 0; i < document.querySelectorAll("button").length; i++) {
       const clickedBtn = document.querySelectorAll("button")[i];
       clickedBtn.addEventListener("click", function (event) {
